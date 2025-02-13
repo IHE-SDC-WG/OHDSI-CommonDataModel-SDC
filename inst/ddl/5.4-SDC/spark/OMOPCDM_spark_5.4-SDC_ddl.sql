@@ -626,53 +626,53 @@ CAST(NULL AS integer) AS cohort_definition_id,
 	CAST(NULL AS integer) AS subject_concept_id,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS cohort_initiation_date  WHERE 1 = 0;
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.templatesdcclass  
+CREATE TABLE @cdmDatabaseSchema.template_sdc  
 USING DELTA
  AS
 SELECT
-CAST(NULL AS integer) AS pk,
-	CAST(NULL AS STRING) AS sdcformdesignid,
-	CAST(NULL AS STRING) AS baseuri,
+CAST(NULL AS integer) AS template_sdc_id,
+	CAST(NULL AS STRING) AS sdc_form_design_sdcid,
+	CAST(NULL AS STRING) AS base_uri,
 	CAST(NULL AS STRING) AS lineage,
 	CAST(NULL AS STRING) AS version,
-	CAST(NULL AS STRING) AS fulluri,
-	CAST(NULL AS STRING) AS formtitle,
-	CAST(NULL AS text) AS sdc_xml,
-	CAST(NULL AS STRING) AS doctype  WHERE 1 = 0;
---HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.templateinstanceclass  
+	CAST(NULL AS STRING) AS full_uri,
+	CAST(NULL AS STRING) AS form_title,
+	CAST(NULL AS STRING) AS sdc_xml,
+	CAST(NULL AS STRING) AS doc_type  WHERE 1 = 0;
+--HINT DISTRIBUTE ON KEY (person_id)
+CREATE TABLE @cdmDatabaseSchema.template_instance  
 USING DELTA
  AS
 SELECT
-CAST(NULL AS integer) AS pk,
-	CAST(NULL AS STRING) AS templateinstanceversionguid,
-	CAST(NULL AS STRING) AS templateinstanceversionuri,
-	CAST(NULL AS integer) AS templatesdcfk,
-	CAST(NULL AS STRING) AS instanceversiondate,
-	CAST(NULL AS STRING) AS diagreportprops,
-	CAST(NULL AS STRING) AS surgpathid,
-	CAST(NULL AS integer) AS personfk,
-	CAST(NULL AS integer) AS encounterfk,
-	CAST(NULL AS integer) AS practitionerfk,
-	CAST(NULL AS STRING) AS reporttext  WHERE 1 = 0;
---HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.sdcobsclass  
+CAST(NULL AS integer) AS template_instance_id,
+	CAST(NULL AS STRING) AS template_instance_version_guid,
+	CAST(NULL AS STRING) AS template_instance_version_uri,
+	CAST(NULL AS integer) AS template_sdc_id,
+	CAST(NULL AS STRING) AS instance_version_date,
+	CAST(NULL AS STRING) AS diag_report_props,
+	CAST(NULL AS STRING) AS surg_path_sdcid,
+	CAST(NULL AS integer) AS person_id,
+	CAST(NULL AS integer) AS visit_occurrence_id,
+	CAST(NULL AS integer) AS provider_id,
+	CAST(NULL AS STRING) AS report_text  WHERE 1 = 0;
+--HINT DISTRIBUTE ON KEY (person_id)
+CREATE TABLE @cdmDatabaseSchema.sdc_observation  
 USING DELTA
  AS
 SELECT
-CAST(NULL AS integer) AS pk,
-	CAST(NULL AS integer) AS templateinstanceclassfk,
-	CAST(NULL AS integer) AS parentfk,
+CAST(NULL AS integer) AS sdc_observation_id,
+	CAST(NULL AS integer) AS template_instance_id,
+	CAST(NULL AS integer) AS parent_observation_id,
 	CAST(NULL AS STRING) AS parentinstanceguid,
-	CAST(NULL AS STRING) AS section_id,
+	CAST(NULL AS STRING) AS section_sdcid,
 	CAST(NULL AS STRING) AS section_guid,
 	CAST(NULL AS STRING) AS q_text,
 	CAST(NULL AS STRING) AS q_instanceguid,
 	CAST(NULL AS STRING) AS q_id,
-	CAST(NULL AS STRING) AS li_text,
-	CAST(NULL AS STRING) AS li_id,
-	CAST(NULL AS STRING) AS li_instanceguid,
-	CAST(NULL AS STRING) AS li_parentguid,
+	CAST(NULL AS STRING) AS list_item_text,
+	CAST(NULL AS STRING) AS list_item_id,
+	CAST(NULL AS STRING) AS list_item_instanceguid,
+	CAST(NULL AS STRING) AS list_item_parentguid,
 	CAST(NULL AS STRING) AS response,
 	CAST(NULL AS STRING) AS units,
 	CAST(NULL AS STRING) AS units_system,
@@ -681,61 +681,61 @@ CAST(NULL AS integer) AS pk,
 	CAST(NULL AS float) AS response_float,
 	IF(try_cast(NULL  AS DATE) IS NULL, to_date(cast(NULL  AS STRING), 'yyyyMMdd'), try_cast(NULL  AS DATE)) AS response_datetime,
 	CAST(NULL AS STRING) AS reponse_string_nvarchar,
-	CAST(NULL AS STRING) AS obsdatetime,
-	CAST(NULL AS STRING) AS sdcorder,
-	CAST(NULL AS STRING) AS sdcrepeatlevel,
-	CAST(NULL AS STRING) AS sdccomments,
-	CAST(NULL AS integer) AS personfk,
-	CAST(NULL AS integer) AS encounterfk,
-	CAST(NULL AS integer) AS practitionerfk  WHERE 1 = 0;
+	CAST(NULL AS STRING) AS obs_datetime,
+	CAST(NULL AS STRING) AS sdc_order,
+	CAST(NULL AS STRING) AS sdc_repeat_level,
+	CAST(NULL AS STRING) AS sdc_comments,
+	CAST(NULL AS integer) AS person_id,
+	CAST(NULL AS integer) AS visit_occurrence_id,
+	CAST(NULL AS integer) AS provider_id  WHERE 1 = 0;
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.templatetermmapclass  
+CREATE TABLE @cdmDatabaseSchema.template_term_map  
 USING DELTA
  AS
 SELECT
-CAST(NULL AS integer) AS pk,
-	CAST(NULL AS STRING) AS templatemapid,
+CAST(NULL AS integer) AS template_term_map_id,
+	CAST(NULL AS STRING) AS template_map_id,
 	CAST(NULL AS STRING) AS template,
-	CAST(NULL AS integer) AS templatesdcfk,
-	CAST(NULL AS STRING) AS mapxml,
-	CAST(NULL AS STRING) AS codesystemname,
-	CAST(NULL AS STRING) AS codesystemreleasedate,
-	CAST(NULL AS STRING) AS codesystemversion,
-	CAST(NULL AS STRING) AS codesystemoid,
-	CAST(NULL AS STRING) AS codesystemuri  WHERE 1 = 0;
+	CAST(NULL AS integer) AS template_sdc_id,
+	CAST(NULL AS STRING) AS map_xml,
+	CAST(NULL AS STRING) AS code_system_name,
+	CAST(NULL AS STRING) AS code_system_release_date,
+	CAST(NULL AS STRING) AS code_system_version,
+	CAST(NULL AS STRING) AS code_system_oid,
+	CAST(NULL AS STRING) AS code_system_uri  WHERE 1 = 0;
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.templatemapcontentclass  
+CREATE TABLE @cdmDatabaseSchema.template_map_content  
 USING DELTA
  AS
 SELECT
-CAST(NULL AS integer) AS pk,
-	CAST(NULL AS integer) AS templatetermmap_fk,
-	CAST(NULL AS STRING) AS targetid,
+CAST(NULL AS integer) AS template_map_content_id,
+	CAST(NULL AS integer) AS template_term_map_id,
+	CAST(NULL AS STRING) AS target_id,
 	CAST(NULL AS STRING) AS code,
-	CAST(NULL AS STRING) AS codetext,
-	CAST(NULL AS STRING) AS codematch  WHERE 1 = 0;
+	CAST(NULL AS STRING) AS code_text,
+	CAST(NULL AS STRING) AS code_match  WHERE 1 = 0;
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.specimenclass  
+CREATE TABLE @cdmDatabaseSchema.sdc_specimen  
 USING DELTA
  AS
 SELECT
-CAST(NULL AS integer) AS specimenpk,
-	CAST(NULL AS integer) AS parentspecimenfk,
-	CAST(NULL AS STRING) AS patientid,
-	CAST(NULL AS STRING) AS encounterid,
-	CAST(NULL AS STRING) AS specimentypetext,
-	CAST(NULL AS STRING) AS specimentypecode,
-	CAST(NULL AS STRING) AS sourcesitetext,
-	CAST(NULL AS STRING) AS sourcesitecode,
-	CAST(NULL AS STRING) AS collectionmethodtext,
-	CAST(NULL AS STRING) AS collectionmethodcode,
-	CAST(NULL AS STRING) AS specimencount,
-	CAST(NULL AS STRING) AS collectiondate  WHERE 1 = 0;
+CAST(NULL AS integer) AS sdc_specimen_id,
+	CAST(NULL AS integer) AS parent_specimen_id,
+	CAST(NULL AS STRING) AS patient_id,
+	CAST(NULL AS integer) AS visit_occurrence_id,
+	CAST(NULL AS STRING) AS specimen_type_text,
+	CAST(NULL AS STRING) AS specimen_type_code,
+	CAST(NULL AS STRING) AS source_site_text,
+	CAST(NULL AS STRING) AS source_site_code,
+	CAST(NULL AS STRING) AS collection_method_text,
+	CAST(NULL AS STRING) AS collection_method_code,
+	CAST(NULL AS STRING) AS specimen_count,
+	CAST(NULL AS STRING) AS collection_date  WHERE 1 = 0;
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.observationspecimensclass  
+CREATE TABLE @cdmDatabaseSchema.observation_specimens  
 USING DELTA
  AS
 SELECT
-CAST(NULL AS integer) AS observationspecimensclasspk,
-	CAST(NULL AS integer) AS sdcobsclassfk,
-	CAST(NULL AS integer) AS specimenfk  WHERE 1 = 0;
+CAST(NULL AS integer) AS observation_specimens_id,
+	CAST(NULL AS integer) AS sdc_observation_id,
+	CAST(NULL AS integer) AS sdc_specimen_id  WHERE 1 = 0;
