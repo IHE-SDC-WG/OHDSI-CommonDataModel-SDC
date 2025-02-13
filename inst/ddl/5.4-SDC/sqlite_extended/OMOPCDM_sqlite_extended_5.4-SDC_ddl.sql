@@ -510,44 +510,44 @@ CREATE TABLE @cdmDatabaseSchema.cohort_definition (
 			subject_concept_id integer NOT NULL,
 			cohort_initiation_date date NULL );
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.templatesdcclass (
-			pk integer NOT NULL,
-			sdcformdesignid TEXT NULL,
-			baseuri TEXT NULL,
+CREATE TABLE @cdmDatabaseSchema.template_sdc (
+			template_sdc_id integer NOT NULL,
+			sdc_form_design_sdcid TEXT NULL,
+			base_uri TEXT NULL,
 			lineage TEXT NULL,
 			version TEXT NULL,
-			fulluri TEXT NULL,
-			formtitle TEXT NULL,
-			sdc_xml text NULL,
-			doctype TEXT NULL );
---HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.templateinstanceclass (
-			pk integer NOT NULL,
-			templateinstanceversionguid TEXT NULL,
-			templateinstanceversionuri TEXT NULL,
-			templatesdcfk integer NOT NULL,
-			instanceversiondate TEXT NULL,
-			diagreportprops TEXT NULL,
-			surgpathid TEXT NULL,
-			personfk integer NULL,
-			encounterfk integer NULL,
-			practitionerfk integer NULL,
-			reporttext TEXT NULL );
---HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.sdcobsclass (
-			pk integer NOT NULL,
-			templateinstanceclassfk integer NOT NULL,
-			parentfk integer NULL,
+			full_uri TEXT NULL,
+			form_title TEXT NULL,
+			sdc_xml TEXT NULL,
+			doc_type TEXT NULL );
+--HINT DISTRIBUTE ON KEY (person_id)
+CREATE TABLE @cdmDatabaseSchema.template_instance (
+			template_instance_id integer NOT NULL,
+			template_instance_version_guid TEXT NULL,
+			template_instance_version_uri TEXT NULL,
+			template_sdc_id integer NOT NULL,
+			instance_version_date TEXT NULL,
+			diag_report_props TEXT NULL,
+			surg_path_sdcid TEXT NULL,
+			person_id integer NULL,
+			visit_occurrence_id integer NULL,
+			provider_id integer NULL,
+			report_text TEXT NULL );
+--HINT DISTRIBUTE ON KEY (person_id)
+CREATE TABLE @cdmDatabaseSchema.sdc_observation (
+			sdc_observation_id integer NOT NULL,
+			template_instance_id integer NOT NULL,
+			parent_observation_id integer NULL,
 			parentinstanceguid TEXT NULL,
-			section_id TEXT NULL,
+			section_sdcid TEXT NULL,
 			section_guid TEXT NULL,
-			q_text TEXT NULL,
-			q_instanceguid TEXT NULL,
-			q_id TEXT NULL,
-			li_text TEXT NULL,
-			li_id TEXT NULL,
-			li_instanceguid TEXT NULL,
-			li_parentguid TEXT NULL,
+			question_text TEXT NULL,
+			question_instance_guid TEXT NULL,
+			question_sdcid TEXT NULL,
+			list_item_text TEXT NULL,
+			list_item_id TEXT NULL,
+			list_item_instanceguid TEXT NULL,
+			list_item_parentguid TEXT NULL,
 			response TEXT NULL,
 			units TEXT NULL,
 			units_system TEXT NULL,
@@ -556,49 +556,49 @@ CREATE TABLE @cdmDatabaseSchema.sdcobsclass (
 			response_float REAL NULL,
 			response_datetime date NULL,
 			reponse_string_nvarchar TEXT NULL,
-			obsdatetime TEXT NULL,
-			sdcorder TEXT NULL,
-			sdcrepeatlevel TEXT NULL,
-			sdccomments TEXT NULL,
-			personfk integer NULL,
-			encounterfk integer NULL,
-			practitionerfk integer NULL );
+			obs_datetime TEXT NULL,
+			sdc_order TEXT NULL,
+			sdc_repeat_level TEXT NULL,
+			sdc_comments TEXT NULL,
+			person_id integer NULL,
+			visit_occurrence_id integer NULL,
+			provider_id integer NULL );
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.templatetermmapclass (
-			pk integer NOT NULL,
-			templatemapid TEXT NULL,
+CREATE TABLE @cdmDatabaseSchema.template_term_map (
+			template_term_map_id integer NOT NULL,
+			template_map_id TEXT NULL,
 			template TEXT NULL,
-			templatesdcfk integer NOT NULL,
-			mapxml TEXT NULL,
-			codesystemname TEXT NULL,
-			codesystemreleasedate TEXT NULL,
-			codesystemversion TEXT NULL,
-			codesystemoid TEXT NULL,
-			codesystemuri TEXT NULL );
+			template_sdc_id integer NOT NULL,
+			map_xml TEXT NULL,
+			code_system_name TEXT NULL,
+			code_system_release_date TEXT NULL,
+			code_system_version TEXT NULL,
+			code_system_oid TEXT NULL,
+			code_system_uri TEXT NULL );
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.templatemapcontentclass (
-			pk integer NOT NULL,
-			templatetermmap_fk integer NOT NULL,
-			targetid TEXT NULL,
+CREATE TABLE @cdmDatabaseSchema.template_map_content (
+			template_map_content_id integer NOT NULL,
+			template_term_map_id integer NOT NULL,
+			target_id TEXT NULL,
 			code TEXT NULL,
-			codetext TEXT NULL,
-			codematch TEXT NULL );
+			code_text TEXT NULL,
+			code_match TEXT NULL );
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.specimenclass (
-			specimenpk integer NOT NULL,
-			parentspecimenfk integer NULL,
-			patientid TEXT NULL,
-			encounterid TEXT NULL,
-			specimentypetext TEXT NULL,
-			specimentypecode TEXT NULL,
-			sourcesitetext TEXT NULL,
-			sourcesitecode TEXT NULL,
-			collectionmethodtext TEXT NULL,
-			collectionmethodcode TEXT NULL,
-			specimencount TEXT NULL,
-			collectiondate TEXT NULL );
+CREATE TABLE @cdmDatabaseSchema.sdc_specimen (
+			sdc_specimen_id integer NOT NULL,
+			parent_specimen_id integer NULL,
+			patient_id TEXT NULL,
+			visit_occurrence_id integer NULL,
+			specimen_type_text TEXT NULL,
+			specimen_type_code TEXT NULL,
+			source_site_text TEXT NULL,
+			source_site_code TEXT NULL,
+			collection_method_text TEXT NULL,
+			collection_method_code TEXT NULL,
+			specimen_count TEXT NULL,
+			collection_date TEXT NULL );
 --HINT DISTRIBUTE ON RANDOM
-CREATE TABLE @cdmDatabaseSchema.observationspecimensclass (
-			observationspecimensclasspk integer NOT NULL,
-			sdcobsclassfk integer NOT NULL,
-			specimenfk integer NOT NULL );
+CREATE TABLE @cdmDatabaseSchema.observation_specimens (
+			observation_specimens_id integer NOT NULL,
+			sdc_observation_id integer NOT NULL,
+			sdc_specimen_id integer NOT NULL );

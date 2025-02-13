@@ -510,44 +510,44 @@ create table @cdmDatabaseSchema.cohort_definition (
 			subject_concept_id INT64 not null,
 			cohort_initiation_date DATE );
 --HINT DISTRIBUTE ON RANDOM
-create table @cdmDatabaseSchema.templatesdcclass (
-			pk INT64 not null,
-			sdcformdesignid STRING,
-			baseuri STRING,
+create table @cdmDatabaseSchema.template_sdc (
+			template_sdc_id INT64 not null,
+			sdc_form_design_sdcid STRING,
+			base_uri STRING,
 			lineage STRING,
 			version STRING,
-			fulluri STRING,
-			formtitle STRING,
-			sdc_xml text null,
-			doctype STRING );
---HINT DISTRIBUTE ON RANDOM
-create table @cdmDatabaseSchema.templateinstanceclass (
-			pk INT64 not null,
-			templateinstanceversionguid STRING,
-			templateinstanceversionuri STRING,
-			templatesdcfk INT64 not null,
-			instanceversiondate STRING,
-			diagreportprops STRING,
-			surgpathid STRING,
-			personfk INT64,
-			encounterfk INT64,
-			practitionerfk INT64,
-			reporttext STRING );
---HINT DISTRIBUTE ON RANDOM
-create table @cdmDatabaseSchema.sdcobsclass (
-			pk INT64 not null,
-			templateinstanceclassfk INT64 not null,
-			parentfk INT64,
+			full_uri STRING,
+			form_title STRING,
+			sdc_xml STRING,
+			doc_type STRING );
+--HINT DISTRIBUTE ON KEY (person_id)
+create table @cdmDatabaseSchema.template_instance (
+			template_instance_id INT64 not null,
+			template_instance_version_guid STRING,
+			template_instance_version_uri STRING,
+			template_sdc_id INT64 not null,
+			instance_version_date STRING,
+			diag_report_props STRING,
+			surg_path_sdcid STRING,
+			person_id INT64,
+			visit_occurrence_id INT64,
+			provider_id INT64,
+			report_text STRING );
+--HINT DISTRIBUTE ON KEY (person_id)
+create table @cdmDatabaseSchema.sdc_observation (
+			sdc_observation_id INT64 not null,
+			template_instance_id INT64 not null,
+			parent_observation_id INT64,
 			parentinstanceguid STRING,
-			section_id STRING,
+			section_sdcid STRING,
 			section_guid STRING,
-			q_text STRING,
-			q_instanceguid STRING,
-			q_id STRING,
-			li_text STRING,
-			li_id STRING,
-			li_instanceguid STRING,
-			li_parentguid STRING,
+			question_text STRING,
+			question_instance_guid STRING,
+			question_sdcid STRING,
+			list_item_text STRING,
+			list_item_id STRING,
+			list_item_instanceguid STRING,
+			list_item_parentguid STRING,
 			response STRING,
 			units STRING,
 			units_system STRING,
@@ -556,49 +556,49 @@ create table @cdmDatabaseSchema.sdcobsclass (
 			response_float FLOAT64,
 			response_datetime DATE,
 			reponse_string_nvarchar STRING,
-			obsdatetime STRING,
-			sdcorder STRING,
-			sdcrepeatlevel STRING,
-			sdccomments STRING,
-			personfk INT64,
-			encounterfk INT64,
-			practitionerfk INT64 );
+			obs_datetime STRING,
+			sdc_order STRING,
+			sdc_repeat_level STRING,
+			sdc_comments STRING,
+			person_id INT64,
+			visit_occurrence_id INT64,
+			provider_id INT64 );
 --HINT DISTRIBUTE ON RANDOM
-create table @cdmDatabaseSchema.templatetermmapclass (
-			pk INT64 not null,
-			templatemapid STRING,
+create table @cdmDatabaseSchema.template_term_map (
+			template_term_map_id INT64 not null,
+			template_map_id STRING,
 			template STRING,
-			templatesdcfk INT64 not null,
-			mapxml STRING,
-			codesystemname STRING,
-			codesystemreleasedate STRING,
-			codesystemversion STRING,
-			codesystemoid STRING,
-			codesystemuri STRING );
+			template_sdc_id INT64 not null,
+			map_xml STRING,
+			code_system_name STRING,
+			code_system_release_date STRING,
+			code_system_version STRING,
+			code_system_oid STRING,
+			code_system_uri STRING );
 --HINT DISTRIBUTE ON RANDOM
-create table @cdmDatabaseSchema.templatemapcontentclass (
-			pk INT64 not null,
-			templatetermmap_fk INT64 not null,
-			targetid STRING,
+create table @cdmDatabaseSchema.template_map_content (
+			template_map_content_id INT64 not null,
+			template_term_map_id INT64 not null,
+			target_id STRING,
 			code STRING,
-			codetext STRING,
-			codematch STRING );
+			code_text STRING,
+			code_match STRING );
 --HINT DISTRIBUTE ON RANDOM
-create table @cdmDatabaseSchema.specimenclass (
-			specimenpk INT64 not null,
-			parentspecimenfk INT64,
-			patientid STRING,
-			encounterid STRING,
-			specimentypetext STRING,
-			specimentypecode STRING,
-			sourcesitetext STRING,
-			sourcesitecode STRING,
-			collectionmethodtext STRING,
-			collectionmethodcode STRING,
-			specimencount STRING,
-			collectiondate STRING );
+create table @cdmDatabaseSchema.sdc_specimen (
+			sdc_specimen_id INT64 not null,
+			parent_specimen_id INT64,
+			patient_id STRING,
+			visit_occurrence_id INT64,
+			specimen_type_text STRING,
+			specimen_type_code STRING,
+			source_site_text STRING,
+			source_site_code STRING,
+			collection_method_text STRING,
+			collection_method_code STRING,
+			specimen_count STRING,
+			collection_date STRING );
 --HINT DISTRIBUTE ON RANDOM
-create table @cdmDatabaseSchema.observationspecimensclass (
-			observationspecimensclasspk INT64 not null,
-			sdcobsclassfk INT64 not null,
-			specimenfk INT64 not null );
+create table @cdmDatabaseSchema.observation_specimens (
+			observation_specimens_id INT64 not null,
+			sdc_observation_id INT64 not null,
+			sdc_specimen_id INT64 not null );
