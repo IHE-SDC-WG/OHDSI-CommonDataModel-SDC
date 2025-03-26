@@ -520,6 +520,18 @@ CREATE TABLE @cdmDatabaseSchema.template_sdc (
 			form_title TEXT NULL,
 			sdc_xml TEXT NULL,
 			doc_type TEXT NULL );
+--HINT DISTRIBUTE ON RANDOM
+CREATE TABLE @cdmDatabaseSchema.template_item (
+			template_item_id integer NOT NULL,
+			template_sdc_id integer NOT NULL,
+			parent_template_item_id integer NULL,
+			template_item_sdcid TEXT NULL,
+			type TEXT NULL,
+			visible_text TEXT NULL,
+			invisible_text TEXT NULL,
+			min_cardinality TEXT NULL,
+			must_implement TEXT NULL,
+			item_order TEXT NULL );
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.template_instance (
 			template_instance_id integer NOT NULL,
@@ -533,12 +545,12 @@ CREATE TABLE @cdmDatabaseSchema.template_instance (
 			visit_occurrence_id integer NULL,
 			provider_id integer NULL,
 			report_text TEXT NULL );
---HINT DISTRIBUTE ON KEY (person_id)
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.sdc_observation (
 			sdc_observation_id integer NOT NULL,
 			template_instance_id integer NOT NULL,
 			parent_observation_id integer NULL,
-			parentinstanceguid TEXT NULL,
+			parent_instance_guid TEXT NULL,
 			section_sdcid TEXT NULL,
 			section_guid TEXT NULL,
 			question_text TEXT NULL,
@@ -546,8 +558,8 @@ CREATE TABLE @cdmDatabaseSchema.sdc_observation (
 			question_sdcid TEXT NULL,
 			list_item_text TEXT NULL,
 			list_item_id TEXT NULL,
-			list_item_instanceguid TEXT NULL,
-			list_item_parentguid TEXT NULL,
+			list_item_instance_guid TEXT NULL,
+			list_item_parent_guid TEXT NULL,
 			response TEXT NULL,
 			units TEXT NULL,
 			units_system TEXT NULL,
@@ -559,10 +571,7 @@ CREATE TABLE @cdmDatabaseSchema.sdc_observation (
 			obs_datetime TEXT NULL,
 			sdc_order TEXT NULL,
 			sdc_repeat_level TEXT NULL,
-			sdc_comments TEXT NULL,
-			person_id integer NULL,
-			visit_occurrence_id integer NULL,
-			provider_id integer NULL );
+			sdc_comments TEXT NULL );
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.template_term_map (
 			template_term_map_id integer NOT NULL,

@@ -175,15 +175,14 @@ alter table @cdmDatabaseSchema.drug_strength add constraint fpk_drug_strength_nu
 alter table @cdmDatabaseSchema.drug_strength add constraint fpk_drug_strength_denominator_unit_concept_id foreign key (denominator_unit_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.cohort_definition add constraint fpk_cohort_definition_definition_type_concept_id foreign key (definition_type_concept_id) references @cdmDatabaseSchema.concept (concept_id);
 alter table @cdmDatabaseSchema.cohort_definition add constraint fpk_cohort_definition_subject_concept_id foreign key (subject_concept_id) references @cdmDatabaseSchema.concept (concept_id);
+alter table @cdmDatabaseSchema.template_item add constraint fpk_template_item_template_sdc_id foreign key (template_sdc_id) references @cdmDatabaseSchema.template_sdc (template_sdc_id);
+alter table @cdmDatabaseSchema.template_item add constraint fpk_template_item_parent_template_item_id foreign key (parent_template_item_id) references @cdmDatabaseSchema.template_item (template_item_id);
 alter table @cdmDatabaseSchema.template_instance add constraint fpk_template_instance_template_sdc_id foreign key (template_sdc_id) references @cdmDatabaseSchema.template_sdc (template_sdc_id);
 alter table @cdmDatabaseSchema.template_instance add constraint fpk_template_instance_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
 alter table @cdmDatabaseSchema.template_instance add constraint fpk_template_instance_visit_occurrence_id foreign key (visit_occurrence_id) references @cdmDatabaseSchema.visit_occurrence (visit_occurrence_id);
 alter table @cdmDatabaseSchema.template_instance add constraint fpk_template_instance_provider_id foreign key (provider_id) references @cdmDatabaseSchema.provider (provider_id);
 alter table @cdmDatabaseSchema.sdc_observation add constraint fpk_sdc_observation_template_instance_id foreign key (template_instance_id) references @cdmDatabaseSchema.template_instance (template_instance_id);
 alter table @cdmDatabaseSchema.sdc_observation add constraint fpk_sdc_observation_parent_observation_id foreign key (parent_observation_id) references @cdmDatabaseSchema.sdc_observation (sdc_observation_id);
-alter table @cdmDatabaseSchema.sdc_observation add constraint fpk_sdc_observation_person_id foreign key (person_id) references @cdmDatabaseSchema.person (person_id);
-alter table @cdmDatabaseSchema.sdc_observation add constraint fpk_sdc_observation_visit_occurrence_id foreign key (visit_occurrence_id) references @cdmDatabaseSchema.visit_occurrence (visit_occurrence_id);
-alter table @cdmDatabaseSchema.sdc_observation add constraint fpk_sdc_observation_provider_id foreign key (provider_id) references @cdmDatabaseSchema.provider (provider_id);
 alter table @cdmDatabaseSchema.template_term_map add constraint fpk_template_term_map_template_sdc_id foreign key (template_sdc_id) references @cdmDatabaseSchema.template_sdc (template_sdc_id);
 alter table @cdmDatabaseSchema.template_map_content add constraint fpk_template_map_content_template_term_map_id foreign key (template_term_map_id) references @cdmDatabaseSchema.template_term_map (template_term_map_id);
 alter table @cdmDatabaseSchema.sdc_specimen add constraint fpk_sdc_specimen_parent_specimen_id foreign key (parent_specimen_id) references @cdmDatabaseSchema.sdc_specimen (sdc_specimen_id);

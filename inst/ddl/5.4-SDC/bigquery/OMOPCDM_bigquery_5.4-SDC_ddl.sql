@@ -520,6 +520,18 @@ create table @cdmDatabaseSchema.template_sdc (
 			form_title STRING,
 			sdc_xml STRING,
 			doc_type STRING );
+--HINT DISTRIBUTE ON RANDOM
+create table @cdmDatabaseSchema.template_item (
+			template_item_id INT64 not null,
+			template_sdc_id INT64 not null,
+			parent_template_item_id INT64,
+			template_item_sdcid STRING,
+			type STRING,
+			visible_text STRING,
+			invisible_text STRING,
+			min_cardinality STRING,
+			must_implement STRING,
+			item_order STRING );
 --HINT DISTRIBUTE ON KEY (person_id)
 create table @cdmDatabaseSchema.template_instance (
 			template_instance_id INT64 not null,
@@ -533,12 +545,12 @@ create table @cdmDatabaseSchema.template_instance (
 			visit_occurrence_id INT64,
 			provider_id INT64,
 			report_text STRING );
---HINT DISTRIBUTE ON KEY (person_id)
+--HINT DISTRIBUTE ON RANDOM
 create table @cdmDatabaseSchema.sdc_observation (
 			sdc_observation_id INT64 not null,
 			template_instance_id INT64 not null,
 			parent_observation_id INT64,
-			parentinstanceguid STRING,
+			parent_instance_guid STRING,
 			section_sdcid STRING,
 			section_guid STRING,
 			question_text STRING,
@@ -546,8 +558,8 @@ create table @cdmDatabaseSchema.sdc_observation (
 			question_sdcid STRING,
 			list_item_text STRING,
 			list_item_id STRING,
-			list_item_instanceguid STRING,
-			list_item_parentguid STRING,
+			list_item_instance_guid STRING,
+			list_item_parent_guid STRING,
 			response STRING,
 			units STRING,
 			units_system STRING,
@@ -559,10 +571,7 @@ create table @cdmDatabaseSchema.sdc_observation (
 			obs_datetime STRING,
 			sdc_order STRING,
 			sdc_repeat_level STRING,
-			sdc_comments STRING,
-			person_id INT64,
-			visit_occurrence_id INT64,
-			provider_id INT64 );
+			sdc_comments STRING );
 --HINT DISTRIBUTE ON RANDOM
 create table @cdmDatabaseSchema.template_term_map (
 			template_term_map_id INT64 not null,

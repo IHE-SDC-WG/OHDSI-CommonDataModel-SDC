@@ -520,6 +520,18 @@ CREATE TABLE @cdmDatabaseSchema.template_sdc (
 			form_title VARCHAR(255),
 			sdc_xml VARCHAR(MAX),
 			doc_type VARCHAR(255) );
+--HINT DISTRIBUTE ON RANDOM
+CREATE TABLE @cdmDatabaseSchema.template_item (
+			template_item_id INT,
+			template_sdc_id INT,
+			parent_template_item_id integer NULL,
+			template_item_sdcid VARCHAR(255),
+			type VARCHAR(255),
+			visible_text VARCHAR(255),
+			invisible_text VARCHAR(255),
+			min_cardinality VARCHAR(255),
+			must_implement VARCHAR(255),
+			item_order VARCHAR(255) );
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.template_instance (
 			template_instance_id INT,
@@ -533,12 +545,12 @@ CREATE TABLE @cdmDatabaseSchema.template_instance (
 			visit_occurrence_id integer NULL,
 			provider_id integer NULL,
 			report_text VARCHAR(MAX) );
---HINT DISTRIBUTE ON KEY (person_id)
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.sdc_observation (
 			sdc_observation_id INT,
 			template_instance_id INT,
 			parent_observation_id integer NULL,
-			parentinstanceguid VARCHAR(255),
+			parent_instance_guid VARCHAR(255),
 			section_sdcid VARCHAR(255),
 			section_guid VARCHAR(255),
 			question_text VARCHAR(255),
@@ -546,8 +558,8 @@ CREATE TABLE @cdmDatabaseSchema.sdc_observation (
 			question_sdcid VARCHAR(255),
 			list_item_text VARCHAR(255),
 			list_item_id VARCHAR(255),
-			list_item_instanceguid VARCHAR(255),
-			list_item_parentguid VARCHAR(255),
+			list_item_instance_guid VARCHAR(255),
+			list_item_parent_guid VARCHAR(255),
 			response VARCHAR(MAX),
 			units VARCHAR(255),
 			units_system VARCHAR(255),
@@ -559,10 +571,7 @@ CREATE TABLE @cdmDatabaseSchema.sdc_observation (
 			obs_datetime VARCHAR(255),
 			sdc_order VARCHAR(255),
 			sdc_repeat_level VARCHAR(255),
-			sdc_comments VARCHAR(255),
-			person_id integer NULL,
-			visit_occurrence_id integer NULL,
-			provider_id integer NULL );
+			sdc_comments VARCHAR(255) );
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.template_term_map (
 			template_term_map_id INT,

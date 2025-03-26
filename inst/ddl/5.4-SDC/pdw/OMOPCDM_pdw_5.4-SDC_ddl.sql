@@ -520,6 +520,18 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.template_sdc  (templ
 			sdc_xml VARCHAR(1000) NULL,
 			doc_type varchar(255) NULL )
 WITH (DISTRIBUTION = REPLICATE);
+--HINT DISTRIBUTE ON RANDOM
+IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.template_item  (template_item_id integer NOT NULL,
+			template_sdc_id integer NOT NULL,
+			parent_template_item_id integer NULL,
+			template_item_sdcid varchar(255) NULL,
+			type varchar(255) NULL,
+			visible_text varchar(255) NULL,
+			invisible_text varchar(255) NULL,
+			min_cardinality varchar(255) NULL,
+			must_implement varchar(255) NULL,
+			item_order varchar(255) NULL )
+WITH (DISTRIBUTION = REPLICATE);
 --HINT DISTRIBUTE ON KEY (person_id)
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.template_instance  (template_instance_id integer NOT NULL,
 			template_instance_version_guid varchar(255) NULL,
@@ -533,11 +545,11 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.template_instance  (
 			provider_id integer NULL,
 			report_text VARCHAR(1000) NULL )
 WITH (DISTRIBUTION = HASH(person_id));
---HINT DISTRIBUTE ON KEY (person_id)
+--HINT DISTRIBUTE ON RANDOM
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.sdc_observation  (sdc_observation_id integer NOT NULL,
 			template_instance_id integer NOT NULL,
 			parent_observation_id integer NULL,
-			parentinstanceguid varchar(255) NULL,
+			parent_instance_guid varchar(255) NULL,
 			section_sdcid varchar(255) NULL,
 			section_guid varchar(255) NULL,
 			question_text varchar(255) NULL,
@@ -545,8 +557,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.sdc_observation  (sd
 			question_sdcid varchar(255) NULL,
 			list_item_text varchar(255) NULL,
 			list_item_id varchar(255) NULL,
-			list_item_instanceguid varchar(255) NULL,
-			list_item_parentguid varchar(255) NULL,
+			list_item_instance_guid varchar(255) NULL,
+			list_item_parent_guid varchar(255) NULL,
 			response VARCHAR(1000) NULL,
 			units varchar(255) NULL,
 			units_system varchar(255) NULL,
@@ -558,11 +570,8 @@ IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.sdc_observation  (sd
 			obs_datetime varchar(255) NULL,
 			sdc_order varchar(255) NULL,
 			sdc_repeat_level varchar(255) NULL,
-			sdc_comments varchar(255) NULL,
-			 person_id integer NULL,
-			visit_occurrence_id integer NULL,
-			provider_id integer NULL )
-WITH (DISTRIBUTION = HASH(person_id));
+			sdc_comments varchar(255) NULL )
+WITH (DISTRIBUTION = REPLICATE);
 --HINT DISTRIBUTE ON RANDOM
 IF XACT_STATE() = 1 COMMIT; CREATE TABLE @cdmDatabaseSchema.template_term_map  (template_term_map_id integer NOT NULL,
 			template_map_id varchar(255) NULL,

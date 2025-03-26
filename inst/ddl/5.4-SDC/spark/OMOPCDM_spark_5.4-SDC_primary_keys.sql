@@ -27,6 +27,7 @@ ALTER TABLE @cdmDatabaseSchema.domain ADD CONSTRAINT xpk_domain  (domain_id);
 ALTER TABLE @cdmDatabaseSchema.concept_class ADD CONSTRAINT xpk_concept_class  (concept_class_id);
 ALTER TABLE @cdmDatabaseSchema.relationship ADD CONSTRAINT xpk_relationship  (relationship_id);
 ALTER TABLE @cdmDatabaseSchema.template_sdc ADD CONSTRAINT xpk_template_sdc  (template_sdc_id);
+ALTER TABLE @cdmDatabaseSchema.template_item ADD CONSTRAINT xpk_template_item  (template_item_id);
 ALTER TABLE @cdmDatabaseSchema.template_instance ADD CONSTRAINT xpk_template_instance  (template_instance_id);
 ALTER TABLE @cdmDatabaseSchema.sdc_observation ADD CONSTRAINT xpk_sdc_observation  (sdc_observation_id);
 ALTER TABLE @cdmDatabaseSchema.template_term_map ADD CONSTRAINT xpk_template_term_map  (template_term_map_id);

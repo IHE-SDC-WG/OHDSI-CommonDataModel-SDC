@@ -28,6 +28,7 @@ ALTER TABLE @cdmDatabaseSchema.domain ADD CONSTRAINT xpk_domain PRIMARY KEY NONC
 ALTER TABLE @cdmDatabaseSchema.concept_class ADD CONSTRAINT xpk_concept_class PRIMARY KEY NONCLUSTERED (concept_class_id);
 ALTER TABLE @cdmDatabaseSchema.relationship ADD CONSTRAINT xpk_relationship PRIMARY KEY NONCLUSTERED (relationship_id);
 ALTER TABLE @cdmDatabaseSchema.template_sdc ADD CONSTRAINT xpk_template_sdc PRIMARY KEY NONCLUSTERED (template_sdc_id);
+ALTER TABLE @cdmDatabaseSchema.template_item ADD CONSTRAINT xpk_template_item PRIMARY KEY NONCLUSTERED (template_item_id);
 ALTER TABLE @cdmDatabaseSchema.template_instance ADD CONSTRAINT xpk_template_instance PRIMARY KEY NONCLUSTERED (template_instance_id);
 ALTER TABLE @cdmDatabaseSchema.sdc_observation ADD CONSTRAINT xpk_sdc_observation PRIMARY KEY NONCLUSTERED (sdc_observation_id);
 ALTER TABLE @cdmDatabaseSchema.template_term_map ADD CONSTRAINT xpk_template_term_map PRIMARY KEY NONCLUSTERED (template_term_map_id);

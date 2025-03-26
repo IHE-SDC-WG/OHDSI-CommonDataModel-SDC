@@ -558,6 +558,16 @@ template_sdc,full_uri,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 template_sdc,form_title,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 template_sdc,sdc_xml,No,varchar(MAX),TBD,TBD,No,No,NA,NA,NA,NA,NA
 template_sdc,doc_type,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+template_item,template_item_id,Yes,integer,TBD,TBD,Yes,No,NA,NA,NA,NA,NA
+template_item,template_sdc_id,Yes,integer,TBD,TBD,No,Yes,template_sdc,template_sdc_id,NA,NA,NA
+template_item,parent_template_item_id,No,integer,TBD,TBD,No,Yes,template_item,template_item_id,NA,NA,NA
+template_item,template_item_sdcid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+template_item,type,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+template_item,visible_text,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+template_item,invisible_text,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+template_item,min_cardinality,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+template_item,must_implement,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+template_item,item_order,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 template_instance,template_instance_id,Yes,integer,TBD,TBD,Yes,No,NA,NA,NA,NA,NA
 template_instance,template_instance_version_guid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 template_instance,template_instance_version_uri,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
@@ -572,7 +582,7 @@ template_instance,report_text,No,varchar(MAX),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,sdc_observation_id,Yes,integer,TBD,TBD,Yes,No,NA,NA,NA,NA,NA
 sdc_observation,template_instance_id,Yes,integer,TBD,TBD,No,Yes,template_instance,template_instance_id,NA,NA,NA
 sdc_observation,parent_observation_id,No,integer,TBD,TBD,No,Yes,sdc_observation,sdc_observation_id,NA,NA,NA
-sdc_observation,parentinstanceguid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+sdc_observation,parent_instance_guid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,section_sdcid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,section_guid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,question_text,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
@@ -580,8 +590,8 @@ sdc_observation,question_instance_guid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA
 sdc_observation,question_sdcid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,list_item_text,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,list_item_id,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
-sdc_observation,list_item_instanceguid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
-sdc_observation,list_item_parentguid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+sdc_observation,list_item_instance_guid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
+sdc_observation,list_item_parent_guid,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,response,No,varchar(MAX),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,units,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,units_system,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
@@ -594,9 +604,6 @@ sdc_observation,obs_datetime,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,sdc_order,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,sdc_repeat_level,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 sdc_observation,sdc_comments,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
-sdc_observation,person_id,No,integer,TBD,TBD,No,Yes,person,person_id,NA,NA,NA
-sdc_observation,visit_occurrence_id,No,integer,TBD,TBD,No,Yes,visit_occurrence,visit_occurrence_id,NA,NA,NA
-sdc_observation,provider_id,No,integer,TBD,TBD,No,Yes,provider,provider_id,NA,NA,NA
 template_term_map,template_term_map_id,Yes,integer,TBD,TBD,Yes,No,NA,NA,NA,NA,NA
 template_term_map,template_map_id,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA
 template_term_map,template,No,varchar(255),TBD,TBD,No,No,NA,NA,NA,NA,NA

@@ -639,6 +639,21 @@ CAST(NULL AS integer) AS template_sdc_id,
 	CAST(NULL AS STRING) AS form_title,
 	CAST(NULL AS STRING) AS sdc_xml,
 	CAST(NULL AS STRING) AS doc_type  WHERE 1 = 0;
+--HINT DISTRIBUTE ON RANDOM
+CREATE TABLE @cdmDatabaseSchema.template_item  
+USING DELTA
+ AS
+SELECT
+CAST(NULL AS integer) AS template_item_id,
+	CAST(NULL AS integer) AS template_sdc_id,
+	CAST(NULL AS integer) AS parent_template_item_id,
+	CAST(NULL AS STRING) AS template_item_sdcid,
+	CAST(NULL AS STRING) AS type,
+	CAST(NULL AS STRING) AS visible_text,
+	CAST(NULL AS STRING) AS invisible_text,
+	CAST(NULL AS STRING) AS min_cardinality,
+	CAST(NULL AS STRING) AS must_implement,
+	CAST(NULL AS STRING) AS item_order  WHERE 1 = 0;
 --HINT DISTRIBUTE ON KEY (person_id)
 CREATE TABLE @cdmDatabaseSchema.template_instance  
 USING DELTA
@@ -655,7 +670,7 @@ CAST(NULL AS integer) AS template_instance_id,
 	CAST(NULL AS integer) AS visit_occurrence_id,
 	CAST(NULL AS integer) AS provider_id,
 	CAST(NULL AS STRING) AS report_text  WHERE 1 = 0;
---HINT DISTRIBUTE ON KEY (person_id)
+--HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.sdc_observation  
 USING DELTA
  AS
@@ -663,7 +678,7 @@ SELECT
 CAST(NULL AS integer) AS sdc_observation_id,
 	CAST(NULL AS integer) AS template_instance_id,
 	CAST(NULL AS integer) AS parent_observation_id,
-	CAST(NULL AS STRING) AS parentinstanceguid,
+	CAST(NULL AS STRING) AS parent_instance_guid,
 	CAST(NULL AS STRING) AS section_sdcid,
 	CAST(NULL AS STRING) AS section_guid,
 	CAST(NULL AS STRING) AS question_text,
@@ -671,8 +686,8 @@ CAST(NULL AS integer) AS sdc_observation_id,
 	CAST(NULL AS STRING) AS question_sdcid,
 	CAST(NULL AS STRING) AS list_item_text,
 	CAST(NULL AS STRING) AS list_item_id,
-	CAST(NULL AS STRING) AS list_item_instanceguid,
-	CAST(NULL AS STRING) AS list_item_parentguid,
+	CAST(NULL AS STRING) AS list_item_instance_guid,
+	CAST(NULL AS STRING) AS list_item_parent_guid,
 	CAST(NULL AS STRING) AS response,
 	CAST(NULL AS STRING) AS units,
 	CAST(NULL AS STRING) AS units_system,
@@ -684,10 +699,7 @@ CAST(NULL AS integer) AS sdc_observation_id,
 	CAST(NULL AS STRING) AS obs_datetime,
 	CAST(NULL AS STRING) AS sdc_order,
 	CAST(NULL AS STRING) AS sdc_repeat_level,
-	CAST(NULL AS STRING) AS sdc_comments,
-	CAST(NULL AS integer) AS person_id,
-	CAST(NULL AS integer) AS visit_occurrence_id,
-	CAST(NULL AS integer) AS provider_id  WHERE 1 = 0;
+	CAST(NULL AS STRING) AS sdc_comments  WHERE 1 = 0;
 --HINT DISTRIBUTE ON RANDOM
 CREATE TABLE @cdmDatabaseSchema.template_term_map  
 USING DELTA
